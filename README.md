@@ -1,70 +1,92 @@
-# Getting Started with Create React App
+# Get started with Creating React Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Step 1: Creating a react project with CLI
 
-In the project directory, you can run:
+```
+npx create-react-app eth_app
+or
+yarn create react-app eth_app
 
-### `npm start`
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Move into Project Directory
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+cd eth_app
+```
 
-### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+### **Installing ether.js**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+npm install --save ethers
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+### **Installing react bootstrap validation**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+npm install react-bootstrap-validation --save
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### **Install bootstrap**
 
-## Learn More
+```
+npm i bootstrap
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Step 2: Connecting Metamask to react app. 
 
-### Code Splitting
+For achieving the meta mask wallet address we need to connect MetaMaks to our react app. For checking, if meta mask is connected.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```
+if(window.ethereum){
+      // Do something 
+    }else{
+      alert("install metamask extension!!")
+    }
+Now, if meta mask is installed we need to request the account.
 
-### Analyzing the Bundle Size
+window.ethereum.request({method:'eth_requestAccounts'})
+.then(res=>{
+        // Return the address of the wallet
+        console.log(res) 
+})
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+**For getting the balance we need to request the balance method**
 
-### Making a Progressive Web App
+```
+window.ethereum.request({
+    method:'eth_getBalance', 
+    params: [address, 'latest']
+}).then(balance => {
+    // Return string value to convert it into int balance
+    console.log(balance) 
+      
+    // Yarn add ethers for using ethers utils or
+    // npm install ethers
+    console.log(ethers.utils.formatEther(balance))
+    // Format the string into main latest balance
+})
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Step 3: Fetch Data to React
+ 
+For fetching the information into react page, we will use useState for setting the value from the javascript method and using into jsx
 
-### Advanced Configuration
+ ```
+const [data, setdata] = useState({
+    address:'',    // Stores address
+    Balance: null  // Stores balance
+  })
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+App.css file is optional for dapp layout
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
