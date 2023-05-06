@@ -2,6 +2,8 @@
 
 Live Website: [Wall C](https://wallc.netlify.app/)
 
+[![WallC](https://github.com/themanavpaul/wall-c-reactjs-and-metamask/blob/master/mata_eth.png)](https://wallc.netlify.app/)
+
 # Get started with Creating React Application
 
 
